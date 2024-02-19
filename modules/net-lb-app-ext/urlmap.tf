@@ -648,9 +648,9 @@ resource "google_compute_url_map" "default" {
         }
       }
       dynamic "route_rules" {
-        for_each = toset(coalesce(m.value.route_rules, []))
+        for_each = coalesce(m.value.route_rules, {})
         content {
-          priority = route_rules.value.priority
+          priority = route_rules.key
           service = route_rules.value.service == null ? null : lookup(
             local.backend_ids,
             route_rules.value.service,

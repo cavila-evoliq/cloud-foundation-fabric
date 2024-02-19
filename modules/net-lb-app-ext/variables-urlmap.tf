@@ -251,9 +251,8 @@ variable "urlmap_config" {
           strip_query   = optional(bool)
         }))
       })))
-      route_rules = optional(list(object({
-        priority = number
-        service  = optional(string)
+      route_rules = optional(map(object({ # The map key is the priority of the route rule.
+        service = optional(string)
         header_action = optional(object({
           request_add = optional(map(object({
             value   = string
